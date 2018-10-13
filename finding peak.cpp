@@ -17,8 +17,11 @@ for(int nn=0;nn<agrc-1;nn++){
     id+="/matrix.data";
     //string idn="../";     //桌面
     //id=idn+id;
+    string url;
+    url="test_case_v2\\test_case\\";
+    id=url+id;
     ifstream infile(id,ios::in);
-    if(!infile){cout<<id<<endl;
+    if(!infile){cout<<id<<' '<<"errrror"<<endl;
     return 1;}
     int x;
     int y;
@@ -45,6 +48,7 @@ for(int nn=0;nn<agrc-1;nn++){
         }   
     }
     id2+="/final.peak";
+    id2=url+id2;
     ofstream outfile(id2,ios::out);
     if(!outfile){cout<<"errrrrror";
         return 1;
