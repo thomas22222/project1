@@ -4,22 +4,15 @@
 
 using namespace std;
 
-class node {
-public:
-    node(int tf=0,int height=0){
-        peak=tf;
-        v=height;
-    }
-    int peak ;
-    int v;
-};
+
 
 int main(int agrc,char *agrv[])
 {
 
     cout<<agrc<<endl;
-    string id;
+    string id,id2;
     id=agrv[1];
+    id2=agrv[1];
     cout<<id<<endl;
     id+="/matrix.data";
     //string idn="../";     //桌面
@@ -33,24 +26,41 @@ int main(int agrc,char *agrv[])
     infile>>y;
     cout<<x<<' '<<y<<endl;
 
-    node map[2][y];
-    infile>>map[0][0];
-    map[0][0].peak+=2;
-    map[0][y-1].peak+=1;
-    for(int j=1;j<y;j++)
-    {
-        infile>>map[0][j].v;
-        if(map[0][j-1].v<map[0][j].v)map[0][j].peak++;
-        else (map[0][j-1].v>map[0][j].v)map[0][j-1].peak++;
-        else {map[0][j].peak++;map[0][j-1].peak++;}
-        peak+=1;
-    }  
+    int map[3][y];
+    bool tf[x][y];
     
-    for(int i=1 ;i<x;i++)
+    for(int i=0 ;i<=x;i++)
     {
         for(int j=0;j<y;j++)
-        {
-            infile>>map[i%3][j].v;
+        {   
+            if(i!=x)tf[i][j]=1;
+            if(i!=x)infile>>map[i%3][j];
+            if(i!=0&&i!=1)  if(map[(i-1)%3][j]<map[(i-2)%3]     [j])      tf[i-1][j]=false;
+            if(j!=0)        if(map[(i-1)%3][j]<map[(i-1)%3]     [j-1])    tf[i-1][j]=false;
+            if(i!=x&&i!=0)        if(map[(i-1)%3][j]<map[(i  )%3]     [j])      tf[i-1][j]=false;
+            if(j!=y-1)      if(map[(i-1)%3][j]<map[(i-1)%3]     [j+1])    tf[i-1][j]=false;
+        }   
+    }
+    id2+="/final.peak";
+    ofstream outfile(id2,ios::out);
+    if(!outfile)cout<<"errrrrr";
+    int sum=0;
+    for(int i=0 ;i<x;i++)
+    {
+        for(int j=0;j<y;j++)
+        {   
+            if(tf[i][j]==true)
+            sum+=1;
+        }   
+    }
+    outfile<<sum<<endl;
+    for(int i=0 ;i<x;i++)
+    {
+        for(int j=0;j<y;j++)
+        {   
+            if(tf[i][j]==true)
+
+            outfile<<i+1<<' '<<j+1<<endl;
         }   
     }
 
