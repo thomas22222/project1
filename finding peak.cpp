@@ -8,11 +8,11 @@ using namespace std;
 
 int main(int agrc,char *agrv[])
 {
-
-    cout<<agrc<<endl;
+for(int nn=0;nn<agrc-1;nn++){
+    //cout<<agrc<<endl;
     string id,id2;
-    id=agrv[1];
-    id2=agrv[1];
+    id=agrv[nn+1];
+    id2=agrv[nn+1];
     cout<<id<<endl;
     id+="/matrix.data";
     //string idn="../";     //桌面
@@ -61,6 +61,7 @@ int main(int agrc,char *agrv[])
         }   
     }
 
+}
     return 0;
 }
 
