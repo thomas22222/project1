@@ -28,6 +28,8 @@ int main(int agrc,char *agrv[])
 
     int map[3][y];
     bool tf[x][y];
+
+    int sum=0;
     
     for(int i=0 ;i<=x;i++)
     {
@@ -37,22 +39,17 @@ int main(int agrc,char *agrv[])
             if(i!=x)infile>>map[i%3][j];
             if(i!=0&&i!=1)  if(map[(i-1)%3][j]<map[(i-2)%3]     [j])      tf[i-1][j]=false;
             if(j!=0)        if(map[(i-1)%3][j]<map[(i-1)%3]     [j-1])    tf[i-1][j]=false;
-            if(i!=x&&i!=0)        if(map[(i-1)%3][j]<map[(i  )%3]     [j])      tf[i-1][j]=false;
+            if(i!=x&&i!=0)  if(map[(i-1)%3][j]<map[(i  )%3]     [j])      tf[i-1][j]=false;
             if(j!=y-1)      if(map[(i-1)%3][j]<map[(i-1)%3]     [j+1])    tf[i-1][j]=false;
+            if(i!=0)  if (tf[i-1][j]==true)sum+=1;
         }   
     }
     id2+="/final.peak";
     ofstream outfile(id2,ios::out);
-    if(!outfile)cout<<"errrrrr";
-    int sum=0;
-    for(int i=0 ;i<x;i++)
-    {
-        for(int j=0;j<y;j++)
-        {   
-            if(tf[i][j]==true)
-            sum+=1;
-        }   
-    }
+    if(!outfile){cout<<"errrrrror";
+        return 1;
+        }
+    
     outfile<<sum<<endl;
     for(int i=0 ;i<x;i++)
     {
